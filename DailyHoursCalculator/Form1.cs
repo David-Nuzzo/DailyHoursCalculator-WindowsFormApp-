@@ -21,7 +21,7 @@ namespace DailyHoursCalculator
 
         private void button1_Click(object sender, EventArgs e)
         {
-            // Read in all values from user inputs.
+            // Read all values from user inputs.
             float startHour = float.Parse(clockInHourTextBox.Text);
             float startMin = float.Parse(clockInMinsTextBox.Text);
 
@@ -30,15 +30,18 @@ namespace DailyHoursCalculator
 
             float breakAmount = float.Parse(breakMinsTextBox.Text) / 60;
 
+            float daysWorkedAmount = float.Parse(daysWorkedTextBox.Text);
+
             // Calculate the hours and mins worked.
             float hours = endHour - startHour;
             float mins = (endMins - startMin) / 60;
             float dailyHours = hours + mins - breakAmount;
+            float weeklyHours = dailyHours * daysWorkedAmount;
 
             // Present the result in the resultTextBox.
             resultTextBox.Text = dailyHours.ToString();
-
-            
+            resultWeeklyTextBox.Text = weeklyHours.ToString();
+                        
         }
     }
 }
