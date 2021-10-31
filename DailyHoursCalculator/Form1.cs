@@ -1,11 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace DailyHoursCalculator
@@ -24,24 +17,31 @@ namespace DailyHoursCalculator
             // Read all values from user inputs.
             float startHour = float.Parse(clockInHourTextBox.Text);
             float startMin = float.Parse(clockInMinsTextBox.Text);
-
             float endHour = float.Parse(clockOutHoursTextBox.Text);
             float endMins = float.Parse(clockOutMinsTextBox.Text);
+            float breakAmount = float.Parse(breakMinsTextBox.Text);
+            float daysInWeekDecimal = float.Parse(daysWorkedTextBox.Text);
 
-            float breakAmount = float.Parse(breakMinsTextBox.Text) / 60;
 
-            float daysWorkedAmount = float.Parse(daysWorkedTextBox.Text);
+            // Calculate the daily mins worked.        
+                            //                  hours              +            mins           -      break 
+            float allDailyMinutes = ((endHour - startHour) * 60)   +   (endMins - startMin)    -   breakAmount;            
+            
 
-            // Calculate the hours and mins worked.
-            float hours = endHour - startHour;
-            float mins = (endMins - startMin) / 60;
-            float dailyHours = hours + mins - breakAmount;
-            float weeklyHours = dailyHours * daysWorkedAmount;
+            // Convert the mins into hours and mins for a single day and then for the full week.
+            TimeSpan t = TimeSpan.FromMinutes(allDailyMinutes);
+            int dailyWorkHours = (int)t.Hours;
+            int dailyWorkMins = (int)t.Minutes;
 
-            // Present the result in the resultTextBox.
-            resultTextBox.Text = dailyHours.ToString();
-            resultWeeklyTextBox.Text = weeklyHours.ToString();
-                        
+            t = TimeSpan.FromMinutes(allDailyMinutes * daysInWeekDecimal);
+            int weeklyWorkHours = (int)t.TotalHours;
+            int weeklyWorkMins = (int)t.Minutes;
+
+
+            // Present the results in the resultTextBoxes.
+            resultTextBox.Text       = "Hours: " + dailyWorkHours.ToString()  + "    Mins: " + dailyWorkMins.ToString();
+            resultWeeklyTextBox.Text = "Hours: " + weeklyWorkHours.ToString() + "    Mins: " + weeklyWorkMins.ToString();
+
         }
     }
 }
