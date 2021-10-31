@@ -6,7 +6,7 @@
     <UseWindowsForms>true</UseWindowsForms>
     <ApplicationIcon>WorkHoursCalculatorIcon.ico</ApplicationIcon>
     <AssemblyName>WorkHoursCalculator</AssemblyName>
-    <RootNamespace>WorkDailyHoursCalculator</RootNamespace>
+    <RootNamespace>WorkHoursCalculator</RootNamespace>
   </PropertyGroup>
 
 </Project>
